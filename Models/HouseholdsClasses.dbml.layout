@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 13.375, 8.5" name="HouseholdsClasses">
+  <DataContextMoniker Name="/HouseholdsClassesDataContext" />
+  <nestedChildShapes>
+    <classShape Id="068dd94d-7b25-44c3-ba91-a5e3fbbfffec" absoluteBounds="6.5, 3, 2, 1.1939925130208333">
+      <DataClassMoniker Name="/HouseholdsClassesDataContext/Household" />
+      <nestedChildShapes>
+        <elementListCompartment Id="5e20059c-f78e-463c-b0e2-6720543a798c" absoluteBounds="6.515, 3.46, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="cda58dbc-cee6-4f7b-97f1-faa46b828e3b" absoluteBounds="11.125, 2.5, 2, 2.5401025390625">
+      <DataClassMoniker Name="/HouseholdsClassesDataContext/FamilyMember" />
+      <nestedChildShapes>
+        <elementListCompartment Id="7d822114-0a01-4482-be14-55dc94067807" absoluteBounds="11.14, 2.96, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(8.5 : 3.59699625651042); (11.125 : 3.59699625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/HouseholdsClassesDataContext/Household/Household_FamilyMember" />
+      <nodes>
+        <classShapeMoniker Id="068dd94d-7b25-44c3-ba91-a5e3fbbfffec" />
+        <classShapeMoniker Id="cda58dbc-cee6-4f7b-97f1-faa46b828e3b" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

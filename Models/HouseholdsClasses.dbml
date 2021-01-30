@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="HouseholdsDb" Class="HouseholdsClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=DESKTOP-HNHF31C\SQLEXPRESS01;Initial Catalog=HouseholdsDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="HouseholdsDbConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Household" Member="Households">
+    <Type Name="Household">
+      <Column Name="HouseholdId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="HousingType" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Association Name="Household_FamilyMember" Member="FamilyMembers" ThisKey="HouseholdId" OtherKey="HouseholdId" Type="FamilyMember" />
+    </Type>
+  </Table>
+  <Table Name="dbo.FamilyMember" Member="FamilyMembers">
+    <Type Name="FamilyMember">
+      <Column Name="MemberId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Gender" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="MaritalStatus" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="SpouseName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="OccupationType" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="AnnualIncome" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="DOB" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="HouseholdId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Household_FamilyMember" Member="Household" ThisKey="HouseholdId" OtherKey="HouseholdId" Type="Household" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

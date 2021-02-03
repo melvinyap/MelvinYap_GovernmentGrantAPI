@@ -69,7 +69,7 @@ namespace MelvinYap_GovernmentGrantAPI.Models
         public string MaritalStatus { get; set; }
         public string SpouseName { get; set; }
         public string OccupationType { get; set; }
-        public decimal AnnualIncome { get; set; }
+        public decimal? AnnualIncome { get; set; }
         public DateTime DOB { get; set; }
     }
 }
@@ -264,3 +264,186 @@ public void Delete(int hid, int fid)
 }
 ```
 ## Testing the Endpoints
+1. Create Household
+
+Request:
+```
+POST https://localhost:44371/api/Household/PostHousehold HTTP/1.1
+User-Agent: Fiddler
+Host: localhost:44371
+Content-Length: 24
+content-type: application/json
+accept: application/json
+
+{"HousingType":"Landed"}
+```
+Response:
+```
+HTTP/1.1 201 Created
+Cache-Control: no-cache
+Pragma: no-cache
+Content-Type: application/json; charset=utf-8
+Expires: -1
+Location: https://localhost:44371/api/Household/PostHousehold/11
+Server: Microsoft-IIS/10.0
+X-AspNet-Version: 4.0.30319
+X-SourceFiles: =?UTF-8?B?RDpcTWVsdmluIFlhcFxEb2N1bWVudHNcVmlzdWFsIFN0dWRpbyAyMDE5XE15IFByb2plY3RzXE1lbHZpbllhcF9Hb3Zlcm5tZW50R3JhbnRBUElcYXBpXEhvdXNlaG9sZFxQb3N0SG91c2Vob2xk?=
+X-Powered-By: ASP.NET
+Date: Tue, 02 Feb 2021 12:48:21 GMT
+Content-Length: 60
+
+{"HouseholdId":11,"HousingType":"Landed","FamilyMembers":[]}
+```
+
+2. Add Family Member to Household
+
+Request:
+```
+POST https://localhost:44371/api/Household/PostFamilyMember HTTP/1.1
+User-Agent: Fiddler
+Host: localhost:44371
+Content-Length: 158
+content-type: application/json
+accept: application/json
+
+{
+"Name" : "Tan Ah Kow",
+"Gender" : "Male",
+"MaritalStatus" : "Single",
+"OccupationType" : "Employed",
+"AnnualIncome" : 100001,
+"DOB" : "12-Dec-2000"
+}
+```
+Response:
+```
+HTTP/1.1 201 Created
+Cache-Control: no-cache
+Pragma: no-cache
+Content-Type: application/json; charset=utf-8
+Expires: -1
+Location: https://localhost:44371/Household/FamilyMember/29
+Server: Microsoft-IIS/10.0
+X-AspNet-Version: 4.0.30319
+X-SourceFiles: =?UTF-8?B?RDpcTWVsdmluIFlhcFxEb2N1bWVudHNcVmlzdWFsIFN0dWRpbyAyMDE5XE15IFByb2plY3RzXE1lbHZpbllhcF9Hb3Zlcm5tZW50R3JhbnRBUElcYXBpXEhvdXNlaG9sZFxQb3N0RmFtaWx5TWVtYmVy?=
+X-Powered-By: ASP.NET
+Date: Tue, 02 Feb 2021 14:24:32 GMT
+Content-Length: 210
+
+{"MemberId":29,"Name":"Tan Ah Kow","Gender":"Male","MaritalStatus":"Single","SpouseName":null,"OccupationType":"Employed","AnnualIncome":100001.0,"DOB":"2000-12-12T00:00:00","HouseholdId":null,"Household":null}
+```
+
+3. List Households
+
+Request:
+```
+GET https://localhost:44371/api/Household HTTP/1.1
+User-Agent: Fiddler
+Host: localhost:44371
+```
+Response:
+```
+HTTP/1.1 200 OK
+Cache-Control: no-cache
+Pragma: no-cache
+Content-Type: application/json; charset=utf-8
+Expires: -1
+Server: Microsoft-IIS/10.0
+X-AspNet-Version: 4.0.30319
+X-SourceFiles: =?UTF-8?B?RDpcTWVsdmluIFlhcFxEb2N1bWVudHNcVmlzdWFsIFN0dWRpbyAyMDE5XE15IFByb2plY3RzXE1lbHZpbllhcF9Hb3Zlcm5tZW50R3JhbnRBUElcYXBpXEhvdXNlaG9sZA==?=
+X-Powered-By: ASP.NET
+Date: Sat, 30 Jan 2021 17:02:22 GMT
+Content-Length: 5111
+
+[{"HouseholdId":1,"HousingType":"HDB","FamilyMembers":[{"MemberId":0,"Name":"John Tan","Gender":"Male","MaritalStatus":"Married","SpouseName":"Jane Lim","OccupationType":"Employed","AnnualIncome":90000.0000,"DOB":"1994-02-01T00:00:00","Household":null},{"MemberId":0,"Name":"Jane Lim","Gender":"Female","MaritalStatus":"Married","SpouseName":"John Tan","OccupationType":"Unemployed","AnnualIncome":null,"DOB":"1995-06-23T00:00:00","Household":null},{"MemberId":0,"Name":"Caden Tan","Gender":"Male","MaritalStatus":"Single","SpouseName":null,"OccupationType":"Unemployed","AnnualIncome":null,"DOB":"2020-04-12T00:00:00","Household":null}]},{"HouseholdId":2,"HousingType":"HDB","FamilyMembers":[{"MemberId":0,"Name":"Teo Boon Hwee","Gender":"Male","MaritalStatus":"Married","SpouseName":"Chua Ai Ling","OccupationType":"Employed","AnnualIncome":55000.0000,"DOB":"1983-10-21T00:00:00","Household":null},{"MemberId":0,"Name":"Chua Ai Ling","Gender":"Female","MaritalStatus":"Married","SpouseName":"Teo Boon Hwee","OccupationType":"Employed","AnnualIncome":40000.0000,"DOB":"1987-09-10T00:00:00","Household":null}]},{"HouseholdId":3,"HousingType":"HDB","FamilyMembers":[{"MemberId":0,"Name":"Lim Siew Mui","Gender":"Female","MaritalStatus":"Widowed","SpouseName":"Teo Kim Soon","OccupationType":"Unemployed","AnnualIncome":null,"DOB":"1965-08-11T00:00:00","Household":null},{"MemberId":0,"Name":"Justin Ong","Gender":"Male","MaritalStatus":"Married","SpouseName":"Ang Li Peng","OccupationType":"Employed","AnnualIncome":120000.0000,"DOB":"1990-01-11T00:00:00","Household":null},{"MemberId":0,"Name":"Ang Li Peng","Gender":"Feale","MaritalStatus":"Married","SpouseName":"Justin Ong","OccupationType":"Employed","AnnualIncome":98000.0000,"DOB":"1989-04-24T00:00:00","Household":null},{"MemberId":0,"Name":"Clarissa Ong","Gender":"Female","MaritalStatus":"Single","SpouseName":null,"OccupationType":"Unemployed","AnnualIncome":null,"DOB":"2014-01-13T00:00:00","Household":null},{"MemberId":0,"Name":"Caden Ong","Gender":"Male","MaritalStatus":"Single","SpouseName":null,"OccupationType":"Unemployed","AnnualIncome":null,"DOB":"2018-03-05T00:00:00","Household":null}]},{"HouseholdId":4,"HousingType":"Condominium","FamilyMembers":[{"MemberId":0,"Name":"Kelvin Chew","Gender":"Male","MaritalStatus":"Divorced","SpouseName":"Goh Aileen","OccupationType":"Employed","AnnualIncome":200000.0000,"DOB":"1971-02-01T00:00:00","Household":null},{"MemberId":0,"Name":"Lee Hui Ling","Gender":"Female","MaritalStatus":"Single","SpouseName":null,"OccupationType":"Employed","AnnualIncome":70000.0000,"DOB":"1987-09-10T00:00:00","Household":null}]},{"HouseholdId":5,"HousingType":"Condominium","FamilyMembers":[{"MemberId":0,"Name":"Goh Soon Lee","Gender":"Male","MaritalStatus":"Married","SpouseName":"Judy Chua","OccupationType":"Employed","AnnualIncome":250000.0000,"DOB":"1969-12-01T00:00:00","Household":null},{"MemberId":0,"Name":"Judy Chua","Gender":"Female","MaritalStatus":"Married","SpouseName":"Goh Soon Lee","OccupationType":"Unemployed","AnnualIncome":null,"DOB":"1972-11-19T00:00:00","Household":null},{"MemberId":0,"Name":"Sophie Goh","Gender":"Female","MaritalStatus":"Single","SpouseName":null,"OccupationType":"Unemployed","AnnualIncome":null,"DOB":"1999-09-16T00:00:00","Household":null},{"MemberId":0,"Name":"Shawn Goh","Gender":"Male","MaritalStatus":"Single","SpouseName":null,"OccupationType":"Unemployed","AnnualIncome":null,"DOB":"2004-04-22T00:00:00","Household":null}]},{"HouseholdId":6,"HousingType":"Landed","FamilyMembers":[{"MemberId":0,"Name":"Lim Kim Teck","Gender":"Male","MaritalStatus":"Married","SpouseName":"Ong Keng Mui","OccupationType":"Employed","AnnualIncome":300000.0000,"DOB":"1964-12-12T00:00:00","Household":null},{"MemberId":0,"Name":"Ong Keng Mui","Gender":"Female","MaritalStatus":"Married","SpouseName":"Lim Kim Teck","OccupationType":"Unemployed","AnnualIncome":null,"DOB":"1968-06-01T00:00:00","Household":null},{"MemberId":0,"Name":"Darren Lim","Gender":"Male","MaritalStatus":"Married","SpouseName":"Lisa Wong","OccupationType":"Employed","AnnualIncome":190000.0000,"DOB":"1986-06-15T00:00:00","Household":null},{"MemberId":0,"Name":"Lisa Wong","Gender":"Female","MaritalStatus":"Married","SpouseName":"Darren Lim","OccupationType":"Employed","AnnualIncome":105000.0000,"DOB":"1994-02-01T00:00:00","Household":null},{"MemberId":0,"Name":"David Lim","Gender":"Male","MaritalStatus":"Single","SpouseName":null,"OccupationType":"Employed","AnnualIncome":290000.0000,"DOB":"1990-05-17T00:00:00","Household":null},{"MemberId":0,"Name":"Mark Lim","Gender":"Male","MaritalStatus":"Single","SpouseName":null,"OccupationType":"Unemployed","AnnualIncome":null,"DOB":"2008-10-23T00:00:00","Household":null},{"MemberId":0,"Name":"Joshua Lim","Gender":"Male","MaritalStatus":"Single","SpouseName":null,"OccupationType":"Unemployed","AnnualIncome":null,"DOB":"2010-04-11T00:00:00","Household":null},{"MemberId":0,"Name":"Jessica Lim","Gender":"Female","MaritalStatus":"Single","SpouseName":null,"OccupationType":"Unemployed","AnnualIncome":null,"DOB":"2012-07-31T00:00:00","Household":null}]}]
+```
+
+4. Show Household
+
+Request:
+```
+GET https://localhost:44371/api/Household/2 HTTP/1.1
+User-Agent: Fiddler
+Host: localhost:44371
+Content-Length: 0
+content-type: application/json
+accept: application/json
+```
+Response:
+```
+HTTP/1.1 200 OK
+Cache-Control: no-cache
+Pragma: no-cache
+Content-Type: application/json; charset=utf-8
+Expires: -1
+Server: Microsoft-IIS/10.0
+X-AspNet-Version: 4.0.30319
+X-SourceFiles: =?UTF-8?B?RDpcTWVsdmluIFlhcFxEb2N1bWVudHNcVmlzdWFsIFN0dWRpbyAyMDE5XE15IFByb2plY3RzXE1lbHZpbllhcF9Hb3Zlcm5tZW50R3JhbnRBUElcYXBpXEhvdXNlaG9sZFwy?=
+X-Powered-By: ASP.NET
+Date: Wed, 03 Feb 2021 17:20:37 GMT
+Content-Length: 439
+
+[{"HouseholdId":2,"HousingType":"HDB","FamilyMembers":[{"MemberId":0,"Name":"Teo Boon Hwee","Gender":"Male","MaritalStatus":"Married","SpouseName":"Chua Ai Ling","OccupationType":"Employed","AnnualIncome":55000.0000,"DOB":"1983-10-21T00:00:00"},{"MemberId":0,"Name":"Chua Ai Ling","Gender":"Female","MaritalStatus":"Married","SpouseName":"Teo Boon Hwee","OccupationType":"Employed","AnnualIncome":40000.0000,"DOB":"1987-09-10T00:00:00"}]}]
+```
+
+5. Search For Households and Recipients of Grant Disbursement
+a. Student Encouragement Bonus - children < 16 years old, household income < $150,000
+
+Request:
+```
+GET https://localhost:44371/api/Household?hhIncome=150000&ltAge=16 HTTP/1.1
+User-Agent: Fiddler
+Host: localhost:44371
+Content-Length: 0
+content-type: application/json
+accept: application/json
+```
+Response:
+```
+HTTP/1.1 200 OK
+Cache-Control: no-cache
+Pragma: no-cache
+Content-Type: application/json; charset=utf-8
+Expires: -1
+Server: Microsoft-IIS/10.0
+X-AspNet-Version: 4.0.30319
+X-SourceFiles: =?UTF-8?B?RDpcTWVsdmluIFlhcFxEb2N1bWVudHNcVmlzdWFsIFN0dWRpbyAyMDE5XE15IFByb2plY3RzXE1lbHZpbllhcF9Hb3Zlcm5tZW50R3JhbnRBUElcYXBpXEhvdXNlaG9sZA==?=
+X-Powered-By: ASP.NET
+Date: Wed, 03 Feb 2021 18:12:25 GMT
+Content-Length: 576
+
+[{"HouseholdId":1,"HousingType":"HDB","FamilyMembers":[{"MemberId":0,"Name":"John Tan","Gender":"Male","MaritalStatus":"Married","SpouseName":null,"OccupationType":"Employed","AnnualIncome":90000.0000,"DOB":"1994-02-01T00:00:00"},{"MemberId":0,"Name":"Jane Lim","Gender":"Female","MaritalStatus":"Married","SpouseName":null,"OccupationType":"Unemployed","AnnualIncome":null,"DOB":"1995-06-23T00:00:00"},{"MemberId":0,"Name":"Caden Tan","Gender":"Male","MaritalStatus":"Single","SpouseName":null,"OccupationType":"Unemployed","AnnualIncome":null,"DOB":"2020-04-12T00:00:00"}]}]
+```
+
+b. Family Togetherness Scheme - husband & wife, children < 18 years old
+
+Request:
+```
+GET https://localhost:44371/api/Household?ltAge=18&hasMarried=true HTTP/1.1
+User-Agent: Fiddler
+Host: localhost:44371
+Content-Length: 0
+content-type: application/json
+accept: application/json
+```
+Response:
+```
+HTTP/1.1 200 OK
+Cache-Control: no-cache
+Pragma: no-cache
+Content-Type: application/json; charset=utf-8
+Expires: -1
+Server: Microsoft-IIS/10.0
+X-AspNet-Version: 4.0.30319
+X-SourceFiles: =?UTF-8?B?RDpcTWVsdmluIFlhcFxEb2N1bWVudHNcVmlzdWFsIFN0dWRpbyAyMDE5XE15IFByb2plY3RzXE1lbHZpbllhcF9Hb3Zlcm5tZW50R3JhbnRBUElcYXBpXEhvdXNlaG9sZA==?=
+X-Powered-By: ASP.NET
+Date: Wed, 03 Feb 2021 18:18:23 GMT
+Content-Length: 4685
+
+[{"HouseholdId":1,"HousingType":"HDB","FamilyMembers":[{"MemberId":0,"Name":"John Tan","Gender":"Male","MaritalStatus":"Married","SpouseName":"Jane Lim","OccupationType":"Employed","AnnualIncome":90000.0000,"DOB":"1994-02-01T00:00:00"},{"MemberId":0,"Name":"Jane Lim","Gender":"Female","MaritalStatus":"Married","SpouseName":"John Tan","OccupationType":"Unemployed","AnnualIncome":null,"DOB":"1995-06-23T00:00:00"},{"MemberId":0,"Name":"Caden Tan","Gender":"Male","MaritalStatus":"Single","SpouseName":null,"OccupationType":"Unemployed","AnnualIncome":null,"DOB":"2020-04-12T00:00:00"}]},{"HouseholdId":2,"HousingType":"HDB","FamilyMembers":[{"MemberId":0,"Name":"Teo Boon Hwee","Gender":"Male","MaritalStatus":"Married","SpouseName":"Chua Ai Ling","OccupationType":"Employed","AnnualIncome":55000.0000,"DOB":"1983-10-21T00:00:00"},{"MemberId":0,"Name":"Chua Ai Ling","Gender":"Female","MaritalStatus":"Married","SpouseName":"Teo Boon Hwee","OccupationType":"Employed","AnnualIncome":40000.0000,"DOB":"1987-09-10T00:00:00"}]},{"HouseholdId":3,"HousingType":"HDB","FamilyMembers":[{"MemberId":0,"Name":"Lim Siew Mui","Gender":"Female","MaritalStatus":"Widowed","SpouseName":"Teo Kim Soon","OccupationType":"Unemployed","AnnualIncome":null,"DOB":"1965-08-11T00:00:00"},{"MemberId":0,"Name":"Justin Ong","Gender":"Male","MaritalStatus":"Married","SpouseName":"Ang Li Peng","OccupationType":"Employed","AnnualIncome":120000.0000,"DOB":"1990-01-11T00:00:00"},{"MemberId":0,"Name":"Ang Li Peng","Gender":"Feale","MaritalStatus":"Married","SpouseName":"Justin Ong","OccupationType":"Employed","AnnualIncome":98000.0000,"DOB":"1989-04-24T00:00:00"},{"MemberId":0,"Name":"Clarissa Ong","Gender":"Female","MaritalStatus":"Single","SpouseName":null,"OccupationType":"Student","AnnualIncome":null,"DOB":"2014-01-13T00:00:00"},{"MemberId":0,"Name":"Caden Ong","Gender":"Male","MaritalStatus":"Single","SpouseName":null,"OccupationType":"Student","AnnualIncome":null,"DOB":"2018-03-05T00:00:00"}]},{"HouseholdId":4,"HousingType":"Condominium","FamilyMembers":[{"MemberId":0,"Name":"Kelvin Chew","Gender":"Male","MaritalStatus":"Divorced","SpouseName":"Goh Aileen","OccupationType":"Employed","AnnualIncome":200000.0000,"DOB":"1971-02-01T00:00:00"},{"MemberId":0,"Name":"Lee Hui Ling","Gender":"Female","MaritalStatus":"Single","SpouseName":null,"OccupationType":"Employed","AnnualIncome":70000.0000,"DOB":"1987-09-10T00:00:00"}]},{"HouseholdId":5,"HousingType":"Condominium","FamilyMembers":[{"MemberId":0,"Name":"Goh Soon Lee","Gender":"Male","MaritalStatus":"Married","SpouseName":"Judy Chua","OccupationType":"Employed","AnnualIncome":250000.0000,"DOB":"1969-12-01T00:00:00"},{"MemberId":0,"Name":"Judy Chua","Gender":"Female","MaritalStatus":"Married","SpouseName":"Goh Soon Lee","OccupationType":"Unemployed","AnnualIncome":null,"DOB":"1972-11-19T00:00:00"},{"MemberId":0,"Name":"Sophie Goh","Gender":"Female","MaritalStatus":"Single","SpouseName":null,"OccupationType":"Unemployed","AnnualIncome":null,"DOB":"1999-09-16T00:00:00"},{"MemberId":0,"Name":"Shawn Goh","Gender":"Male","MaritalStatus":"Single","SpouseName":null,"OccupationType":"Student","AnnualIncome":null,"DOB":"2004-04-22T00:00:00"}]},{"HouseholdId":6,"HousingType":"Landed","FamilyMembers":[{"MemberId":0,"Name":"Lim Kim Teck","Gender":"Male","MaritalStatus":"Married","SpouseName":"Ong Keng Mui","OccupationType":"Employed","AnnualIncome":300000.0000,"DOB":"1964-12-12T00:00:00"},{"MemberId":0,"Name":"Ong Keng Mui","Gender":"Female","MaritalStatus":"Married","SpouseName":"Lim Kim Teck","OccupationType":"Unemployed","AnnualIncome":null,"DOB":"1968-06-01T00:00:00"},{"MemberId":0,"Name":"Darren Lim","Gender":"Male","MaritalStatus":"Married","SpouseName":"Lisa Wong","OccupationType":"Employed","AnnualIncome":190000.0000,"DOB":"1986-06-15T00:00:00"},{"MemberId":0,"Name":"Lisa Wong","Gender":"Female","MaritalStatus":"Married","SpouseName":"Darren Lim","OccupationType":"Employed","AnnualIncome":105000.0000,"DOB":"1994-02-01T00:00:00"},{"MemberId":0,"Name":"David Lim","Gender":"Male","MaritalStatus":"Single","SpouseName":null,"OccupationType":"Employed","AnnualIncome":290000.0000,"DOB":"1990-05-17T00:00:00"},{"MemberId":0,"Name":"Mark Lim","Gender":"Male","MaritalStatus":"Single","SpouseName":null,"OccupationType":"Student","AnnualIncome":null,"DOB":"2008-10-23T00:00:00"},{"MemberId":0,"Name":"Joshua Lim","Gender":"Male","MaritalStatus":"Single","SpouseName":null,"OccupationType":"Student","AnnualIncome":null,"DOB":"2010-04-11T00:00:00"},{"MemberId":0,"Name":"Jessica Lim","Gender":"Female","MaritalStatus":"Single","SpouseName":null,"OccupationType":"Student","AnnualIncome":null,"DOB":"2012-07-31T00:00:00"}]}]
+```
+
+c. Elder Bonus
+
+Request:
+```

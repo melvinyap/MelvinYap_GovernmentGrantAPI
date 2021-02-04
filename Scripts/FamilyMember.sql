@@ -1,7 +1,32 @@
 USE [HouseholdsDb]
 GO
 
-TRUNCATE TABLE [dbo].[FamilyMember];
+/****** Object:  Table [dbo].[FamilyMember]    Script Date: 4/2/2021 8:24:48 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+DROP TABLE [dbo].[FamilyMember];
+GO
+
+CREATE TABLE [dbo].[FamilyMember](
+	[MemberId] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](50) NOT NULL,
+	[Gender] [varchar](10) NOT NULL,
+	[MaritalStatus] [varchar](10) NOT NULL,
+	[SpouseName] [varchar](50) NULL,
+	[OccupationType] [varchar](10) NOT NULL,
+	[AnnualIncome] [money] NULL,
+	[DOB] [date] NOT NULL,
+	[HouseholdId] [int] NULL,
+ CONSTRAINT [PK_FamilyMember1] PRIMARY KEY CLUSTERED 
+(
+	[MemberId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
 
 INSERT INTO [dbo].[FamilyMember]
            ([Name]
